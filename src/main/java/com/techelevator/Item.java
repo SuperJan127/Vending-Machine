@@ -1,8 +1,10 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public abstract class Item {
     private String name;
-    private double price;
+    private BigDecimal price;
     private String dispenseMessage;
     private String location;
     private int quantity;
@@ -19,7 +21,7 @@ public abstract class Item {
         return name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -31,7 +33,7 @@ public abstract class Item {
         this.dispenseMessage = dispenseMessage;
     }
 
-    public Item(String name, double price, String location){
+    public Item(String name, BigDecimal price, String location){
         this.name = name;
         this.price = price;
         quantity = 5;

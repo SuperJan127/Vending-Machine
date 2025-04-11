@@ -3,6 +3,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Inventory {
@@ -25,17 +26,17 @@ public class Inventory {
                 String location = lineParts[0];
                 String name = lineParts[1];
                 String price = lineParts[2];
-                Double priceAsDouble = Double.parseDouble(price);
+                BigDecimal priceAsBigDecimal = new BigDecimal(price);
                 String type = lineParts[3];
                 if(type.equals("Chip")){
-                  items.add(new Chip(name, priceAsDouble, location));
+                  items.add(new Chip(name, priceAsBigDecimal, location));
 
                 } else if ( type.equals("Candy")){
-                    items.add(new Candy(name, priceAsDouble, location));
+                    items.add(new Candy(name, priceAsBigDecimal, location));
                 } else if ( type.equals("Drink")){
-                    items.add(new Drink(name, priceAsDouble, location));
+                    items.add(new Drink(name, priceAsBigDecimal, location));
                 } else{
-                   items.add(new Gum(name, priceAsDouble, location));
+                   items.add(new Gum(name, priceAsBigDecimal, location));
                 }
 
             }

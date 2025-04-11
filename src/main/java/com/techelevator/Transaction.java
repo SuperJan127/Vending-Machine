@@ -1,21 +1,23 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class Transaction {
-    private double balance = 0;
+    private BigDecimal balance = new BigDecimal(0);
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public double addMoney(double moneyAdded){
-        balance += moneyAdded;
+    public BigDecimal addMoney(BigDecimal moneyAdded){
+        balance = balance.add(moneyAdded);
         return balance;
     }
-    public double useMoney(double moneyUsed){
-        if(moneyUsed > balance){
+    public BigDecimal useMoney(BigDecimal moneyUsed){
+        if(balance.compareTo(moneyUsed) == -1){
             System.out.println("Insufficient funds, please add more money: ");
         } else{
-            balance -= moneyUsed;
+            balance = balance.subtract(moneyUsed);
         }
         return balance;
     }
