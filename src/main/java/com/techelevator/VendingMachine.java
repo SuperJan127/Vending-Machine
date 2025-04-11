@@ -12,9 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+
+
 public class VendingMachine {
 
     private Inventory inventory = new Inventory();
+    private String filePath;
     public VendingMachine() throws FileNotFoundException {
         inventory.createItems();
     }
@@ -63,6 +66,7 @@ public class VendingMachine {
                                     chosenItem.setQuantity(chosenItem.getQuantity() - 1);
                                     TransactionLog.writeLog(chosenItem.getName() + " " + chosenItem.getLocation(), chosenItem.getPrice(), transaction.getBalance());
                                     InventoryLog.writeLog(chosenItem.getName(), chosenItem.getPrice());
+                                    filePath = InventoryLog.getFilePathName();
                                 } catch (Exception e) {
 
 
@@ -88,18 +92,19 @@ public class VendingMachine {
                         } catch (Exception e) {
                             System.out.println("Invalid Selection. Please Select Again.");
                         }
-                        if(choice.equals("4")){
-                            try {
-                                Scanner fileScanner = new Scanner("inventorylog.txt");
-                                while (fileScanner.hasNextLine()){
-                                    System.out.println(fileScanner.nextLine());
-                                }
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
 
-                        }
                     } while (!selection.equals("3"));
+                }
+                if(choice.equals("4")){
+                    try {
+                        Scanner fileScanner = new Scanner(new File(filePath));
+                        while (fileScanner.hasNextLine()){
+                            System.out.println(fileScanner.nextLine());
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
             } catch (Exception e){
                 System.out.println("Invalid Selection. Please Select Again.");

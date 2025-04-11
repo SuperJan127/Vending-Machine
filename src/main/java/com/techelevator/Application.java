@@ -7,6 +7,7 @@ public class Application {
 
 	public static void main(String[] args) throws IOException {
 		VendingMachine vendingMachine = new VendingMachine();
+
 		InventoryLog.newInventory.createItems();
 		InventoryLog.newInventory.createInventoryMap();
 		InventoryLog.createMap();
