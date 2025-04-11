@@ -2,6 +2,7 @@ package com.techelevator;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -63,7 +64,7 @@ public class VendingMachine {
                                     TransactionLog.writeLog(chosenItem.getName() + " " + chosenItem.getLocation(), chosenItem.getPrice(), transaction.getBalance());
                                     InventoryLog.writeLog(chosenItem.getName(), chosenItem.getPrice());
                                 } catch (Exception e) {
-                                    System.out.println("Invalid Selection. Please Choose Again.");
+
 
                                 }
                             }
@@ -83,15 +84,29 @@ public class VendingMachine {
                                 TransactionLog.writeLog("GIVE CHANGE:", tempBalance, transaction.getBalance());
 
                             }
+
                         } catch (Exception e) {
                             System.out.println("Invalid Selection. Please Select Again.");
                         }
+                        if(choice.equals("4")){
+                            try {
+                                Scanner fileScanner = new Scanner("inventorylog.txt");
+                                while (fileScanner.hasNextLine()){
+                                    System.out.println(fileScanner.nextLine());
+                                }
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
 
+                        }
                     } while (!selection.equals("3"));
                 }
             } catch (Exception e){
                 System.out.println("Invalid Selection. Please Select Again.");
             }
         } while (!choice.equals("3"));
+
+        keyboard.close();
     }
+
 }

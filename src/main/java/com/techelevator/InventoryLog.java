@@ -28,13 +28,14 @@ public class InventoryLog {
             }
         }
         String directoryName = "data";
-        String filename = "inventoryLog.txt";
+        String timeStamp = String.valueOf(LocalDateTime.now());
+        String filename = timeStamp + "inventoryLog.txt";
         File logDirectory = new File(directoryName);
 
         if(!logDirectory.exists()){
             logDirectory.mkdir();
         }
-        String filePath = directoryName + "//" + filename;
+        String filePath = logDirectory + "//" + filename;
         File inventoryFile = new File(filePath);
 
         try (PrintWriter writer = new PrintWriter(inventoryFile)) {
