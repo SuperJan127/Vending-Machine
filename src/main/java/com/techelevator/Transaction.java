@@ -12,7 +12,11 @@ public class Transaction {
         return balance;
     }
     public double useMoney(double moneyUsed){
-        balance -= moneyUsed;
+        if(moneyUsed > balance){
+            System.out.println("Insufficient funds, please add more money: ");
+        } else{
+            balance -= moneyUsed;
+        }
         return balance;
     }
 }

@@ -3,9 +3,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Inventory {
     private final String DIVIDER = "\\|";
@@ -16,6 +14,7 @@ public class Inventory {
     }
 
     private List<Item> items = new ArrayList<>();
+    private Map<String, Item> itemMap = new HashMap<>();
 
     public List createItems() throws FileNotFoundException {
         File inventoryData = new File(INPUT_FILE);
@@ -45,6 +44,14 @@ public class Inventory {
         }
         return items;
     }
+    public Map createInventoryMap(){
+        for(Item item : items){
+            itemMap.put(item.getLocation(), item);
+        }
+        return itemMap;
+    }
 
-
+    public Map<String, Item> getItemMap() {
+        return itemMap;
+    }
 }

@@ -37,4 +37,8 @@ public abstract class Item {
         quantity = 5;
         this.location = location;
     }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
