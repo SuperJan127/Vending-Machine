@@ -26,9 +26,11 @@ public class VendingMachine {
     public void displayMenu() throws IOException {
         String choice;
         do {
+            System.out.println("*************************************");
             System.out.println("(1) Display Vending Machine Items");
             System.out.println("(2) Purchase");
             System.out.println("(3) Exit");
+            System.out.println("*************************************");
             choice = keyboard.nextLine();
             try {
                 if (choice.equals("1")) {
@@ -41,10 +43,12 @@ public class VendingMachine {
                     Transaction transaction = new Transaction();
                     String selection = "";
                     do {
+                        System.out.println("*************************************");
                         System.out.println("Current Money Provided: $" + transaction.getBalance());
                         System.out.println("(1) Feed Money");
                         System.out.println("(2) Select Product");
                         System.out.println("(3) Finish Transaction");
+                        System.out.println("*************************************");
                         selection = keyboard.nextLine();
                         try {
                             if (selection.equals("1")) {
@@ -56,17 +60,34 @@ public class VendingMachine {
                             }
                             if (selection.equals("2")) {
 
+
                                 try {
                                     Map<String, Item> itemMap = inventory.createInventoryMap();
+                                    for (Item item : inventory.getItems()) {
+                                        System.out.println(item.getLocation() + " " + item.getName() + " $" + item.getPrice() + " Qty. Remaining " + item.getQuantity());
+                                    }
+                                    System.out.println("*************************************");
+                                    System.out.println("Current Balance is: $" + transaction.getBalance());
                                     System.out.println("Enter Location of item to purchase: ");
                                     String itemChosen = keyboard.nextLine();
                                     Item chosenItem = itemMap.get(itemChosen);
-                                    transaction.useMoney(chosenItem.getPrice());
-                                    System.out.println(chosenItem.getDispenseMessage());
-                                    chosenItem.setQuantity(chosenItem.getQuantity() - 1);
-                                    TransactionLog.writeLog(chosenItem.getName() + " " + chosenItem.getLocation(), chosenItem.getPrice(), transaction.getBalance());
-                                    InventoryLog.writeLog(chosenItem.getName(), chosenItem.getPrice());
-                                    filePath = InventoryLog.getFilePathName();
+                                    if (transaction.getBalance().compareTo(chosenItem.getPrice()) < 0){
+                                        System.out.println("Insufficient funds, please add more money ");
+                                    } else if(!itemMap.containsKey(itemChosen)) {
+                                        System.out.println("Invalid Location. Please Choose Again.");
+                                    } else if(chosenItem.getQuantity() == 0){
+                                        System.out.println("Item is Sold Out. Please Choose Another Item.");
+                                    } else {
+                                            transaction.useMoney(chosenItem.getPrice());
+                                            System.out.println(chosenItem.getName() + " purchased for $" + chosenItem.getPrice() +
+                                                    ". Remaining Balance is $" + transaction.getBalance());
+                                            System.out.println(chosenItem.getDispenseMessage());
+                                            chosenItem.setQuantity(chosenItem.getQuantity() - 1);
+                                            TransactionLog.writeLog(chosenItem.getName() + " " + chosenItem.getLocation(), chosenItem.getPrice(), transaction.getBalance());
+                                            InventoryLog.writeLog(chosenItem.getName(), chosenItem.getPrice());
+                                            filePath = InventoryLog.getFilePathName();
+
+                                    }
                                 } catch (Exception e) {
 
 
